@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useMemo, useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import { products } from "@/data/products";
 import { motion } from "framer-motion";
@@ -7,6 +7,10 @@ import { SlidersHorizontal, X, Settings, Crown, Star, Tag, ChevronRight } from "
 
 // ── Extended filter definitions from client sketch ──────────────────────────
 const filters = {
+  serviceTier: {
+    label: "Service Tier",
+    options: ["Regular", "Premium"],
+  },
   hairColor: {
     label: "Hair Color",
     options: ["Black", "Dark Brown", "Brown", "Grey", "Auburn", "Natural Black"],
@@ -28,8 +32,8 @@ const filters = {
     options: ["7x5", "8x6", "10x8", "10x10", "Custom"],
   },
   hairType: {
-    label: "Hair Type",
-    options: ["Mono", "Lace", "Silk", "Full Poly", "Premium"],
+    label: "Base Type",
+    options: ["Mono", "Lace", "Silk", "Poly"],
   },
 };
 
@@ -48,7 +52,7 @@ const posterItems = [
     id: "poster-2",
     label: "💎 Premium Systems",
     desc: "Signature studio-exclusive hair systems",
-    link: "/products?category=Hair%20Systems&sub=Premium",
+    link: "/products?tier=Premium",
     bg: "from-charcoal/80 to-charcoal/40",
     icon: Crown,
   },
@@ -67,7 +71,9 @@ interface HairSystemsShowcaseProps {
 }
 
 const HairSystemsShowcase = ({ isHomePage = false }: HairSystemsShowcaseProps) => {
+  const [searchParams] = useSearchParams();
   const [selected, setSelected] = useState<Record<FilterKey, string[]>>({
+    serviceTier: [],
     hairColor: [],
     hairDesign: [],
     texture: [],
@@ -76,6 +82,14 @@ const HairSystemsShowcase = ({ isHomePage = false }: HairSystemsShowcaseProps) =
     hairType: [],
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Sync with URL params
+  useEffect(() => {
+    const tier = searchParams.get("tier");
+    if (tier && (tier === "Regular" || tier === "Premium")) {
+      setSelected(prev => ({ ...prev, serviceTier: [tier] }));
+    }
+  }, [searchParams]);
 
   const toggle = (key: FilterKey, value: string) => {
     setSelected((current) => ({
@@ -87,7 +101,7 @@ const HairSystemsShowcase = ({ isHomePage = false }: HairSystemsShowcaseProps) =
   };
 
   const clearAll = () =>
-    setSelected({ hairColor: [], hairDesign: [], texture: [], hairDensity: [], baseSize: [], hairType: [] });
+    setSelected({ serviceTier: [], hairColor: [], hairDesign: [], texture: [], hairDensity: [], baseSize: [], hairType: [] });
 
   const activeFilterCount = Object.values(selected).flat().length;
 
@@ -96,11 +110,12 @@ const HairSystemsShowcase = ({ isHomePage = false }: HairSystemsShowcaseProps) =
 
     if (!isHomePage) {
       result = result.filter((p) => {
+        const tierMatch = selected.serviceTier.length === 0 || selected.serviceTier.includes(p.serviceTier);
         const colorMatch = selected.hairColor.length === 0 || selected.hairColor.includes(p.color || "");
         const densityMatch = selected.hairDensity.length === 0 || selected.hairDensity.includes(p.density || "");
         const sizeMatch = selected.baseSize.length === 0 || selected.baseSize.includes(p.size || "");
         const typeMatch = selected.hairType.length === 0 || selected.hairType.includes(p.baseType || "");
-        return colorMatch && densityMatch && sizeMatch && typeMatch;
+        return tierMatch && colorMatch && densityMatch && sizeMatch && typeMatch;
       });
     }
 

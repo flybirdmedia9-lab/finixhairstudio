@@ -231,19 +231,52 @@ const ProductDetail = () => {
 
               {/* Variants */}
               {product.variants?.map((v) => (
-                <div key={v.label} className="mb-4">
-                  <h3 className="font-body font-semibold text-sm mb-2">{v.label}</h3>
+                <div key={v.label} className="mb-6">
+                  <h3 className="font-body font-semibold text-sm mb-3 uppercase tracking-wider text-muted-foreground">{v.label}</h3>
                   <div className="flex gap-2 flex-wrap">
                     {v.options.map((opt) => (
                       <button
                         key={opt}
-                        onClick={() => setSelectedVariants((prev) => ({ ...prev, [v.label]: opt }))}
-                        className={`px-4 py-2 border rounded text-sm font-body transition-colors ${selectedVariants[v.label] === opt ? "border-gold bg-gold/10 text-gold" : "border-border hover:border-gold"}`}
+                        onClick={() => {
+                          setSelectedVariants((prev) => ({ ...prev, [v.label]: opt }));
+                        }}
+                        className={`px-5 py-2.5 border rounded-md text-sm font-body font-medium transition-all duration-300 ${
+                          selectedVariants[v.label]?.startsWith(opt) 
+                            ? "border-gold bg-gold/10 text-gold shadow-[0_0_15px_rgba(212,175,55,0.2)]" 
+                            : "border-border hover:border-gold hover:text-gold"
+                        }`}
                       >
                         {opt}
                       </button>
                     ))}
                   </div>
+
+                  {/* Special sub-selection for Pepper Salt */}
+                  {v.label === "Color" && selectedVariants["Color"]?.startsWith("Pepper Salt") && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-4 p-4 bg-secondary/50 rounded-lg border border-border"
+                    >
+                      <h4 className="font-body font-bold text-[10px] uppercase tracking-widest text-gold mb-3">Select Gray Percentage</h4>
+                      <div className="flex gap-2 flex-wrap">
+                        {["5%", "10%", "15%", "20%", "30%", "50%", "80%"].map((pct) => {
+                          const isSelected = selectedVariants["Color"] === `Pepper Salt (${pct})`;
+                          return (
+                            <button
+                              key={pct}
+                              onClick={() => setSelectedVariants((prev) => ({ ...prev, "Color": `Pepper Salt (${pct})` }))}
+                              className={`px-3 py-1.5 border rounded text-xs font-body transition-all ${
+                                isSelected ? "bg-gold text-charcoal border-gold font-bold" : "border-border hover:border-gold/50"
+                              }`}
+                            >
+                              {pct}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
               ))}
 

@@ -15,6 +15,7 @@ import Consultation from "./pages/Consultation";
 import Accessories from "./pages/Accessories";
 import Account from "./pages/Account";
 import Admin from "./pages/Admin";
+import Gallery from "./pages/Gallery";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/consultation" element={<Consultation />} />
             <Route path="/account" element={<Account />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

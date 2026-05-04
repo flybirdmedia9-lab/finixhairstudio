@@ -4,6 +4,8 @@ import Footer from "@/components/store/Footer";
 import CartDrawer from "@/components/store/CartDrawer";
 import WhatsAppButton from "@/components/store/WhatsAppButton";
 import HairSystemsShowcase from "@/components/store/HairSystemsShowcase";
+import CategoryHeader from "@/components/store/CategoryHeader";
+import heroAmbassador1 from "@/assets/hero-ambassador-1.jpg";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 
@@ -13,6 +15,13 @@ const Products = () => {
       <AnnouncementBar />
       <Header />
       
+      <CategoryHeader 
+        title="Hair Systems" 
+        subtitle="Explore our exclusive range of natural-looking hair solutions"
+        image={heroAmbassador1}
+        badge="Luxury Collection"
+      />
+
       {/* Breadcrumbs */}
       <div className="bg-off-white border-b border-border/40">
         <div className="container py-4">

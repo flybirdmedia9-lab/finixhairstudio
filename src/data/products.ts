@@ -10,6 +10,13 @@ import productSystemMono from "@/assets/product-system-mono.jpg";
 import productSystemLace from "@/assets/product-system-lace.jpg";
 import productAccessoryKit from "@/assets/product-accessory-kit.jpg";
 
+// New unique images
+import productMonoNew from "@/assets/product-mono-new.png";
+import productSilkNew from "@/assets/product-silk-new.png";
+import productLaceNew from "@/assets/product-lace-new.png";
+import productPolyNew from "@/assets/product-poly-new.png";
+import productExecutiveNew from "@/assets/product-executive-new.png";
+
 export interface Product {
   id: string;
   name: string;
@@ -30,12 +37,13 @@ export interface Product {
   color?: "Black" | "Brown" | "Grey" | "Dark Brown";
   variants?: { label: string; options: string[] }[];
   badge?: string;
+  serviceTier: "Regular" | "Premium";
 }
 
 const systemVariants = [
   { label: "Size", options: ["7x5", "8x6", "10x8", "10x10"] },
   { label: "Density", options: ["Light", "Medium", "Heavy"] },
-  { label: "Color", options: ["Black", "Brown", "Grey", "Dark Brown"] },
+  { label: "Color", options: ["Black", "Brown", "Pepper Salt"] },
 ];
 
 export const products: Product[] = [
@@ -44,13 +52,13 @@ export const products: Product[] = [
     name: "Mono System",
     price: 12999,
     originalPrice: 15999,
-    image: productSystemMono,
-    images: [productSystemMono, productSystemLace, product1],
+    image: productMonoNew,
+    images: [productMonoNew, productSystemMono, product1],
     category: "Hair Systems",
     subcategory: "Mono",
     rating: 4.9,
     reviews: 124,
-    description: "Premium mono base hair system with natural hairline and long-lasting durability for everyday wear.",
+    description: "High-quality mono base hair system with natural hairline and long-lasting durability for everyday wear.",
     features: ["Mono base", "100% natural human hair", "Breathable construction", "Custom cut and styling", "Natural scalp finish"],
     inStock: true,
     baseType: "Mono",
@@ -59,18 +67,19 @@ export const products: Product[] = [
     color: "Black",
     variants: systemVariants,
     badge: "Best Seller",
+    serviceTier: "Regular",
   },
   {
     id: "hs-silk-system",
     name: "Silk System",
     price: 11999,
-    image: productSystemMono,
-    images: [productSystemMono, product1],
+    image: productSilkNew,
+    images: [productSilkNew, product1],
     category: "Hair Systems",
     subcategory: "Silk",
     rating: 4.8,
     reviews: 96,
-    description: "Silk top system built to mimic the appearance of a real scalp with soft, premium movement.",
+    description: "Silk top system built to mimic the appearance of a real scalp with soft, natural movement.",
     features: ["Silk top base", "Undetectable scalp effect", "Soft Remy hair", "Comfortable daily fit", "Expert colour blending"],
     inStock: true,
     baseType: "Silk",
@@ -79,13 +88,14 @@ export const products: Product[] = [
     color: "Brown",
     variants: systemVariants,
     badge: "Popular",
+    serviceTier: "Regular",
   },
   {
     id: "hs-lace-system",
     name: "Lace System",
     price: 14999,
-    image: productSystemLace,
-    images: [productSystemLace, product2],
+    image: productLaceNew,
+    images: [productLaceNew, product2],
     category: "Hair Systems",
     subcategory: "Lace",
     rating: 4.8,
@@ -118,24 +128,25 @@ export const products: Product[] = [
     color: "Brown",
     variants: systemVariants,
     badge: "Premium",
+    serviceTier: "Premium",
   },
   {
     id: "hs-full-poly",
     name: "Full Poly System",
     price: 10999,
-    image: productSystemMono,
-    images: [productSystemMono, product4],
+    image: productPolyNew,
+    images: [productPolyNew, product4],
     category: "Hair Systems",
     subcategory: "Poly",
     rating: 4.6,
     reviews: 71,
-    description: "Durable poly base system that is easy to attach, remove, clean, and maintain.",
+    description: "Durable poly base system that is easy to attach, remove, and maintain for standard grooming.",
     features: ["Full poly base", "Easy cleanup", "Strong hold", "Natural density", "Beginner-friendly care"],
     inStock: true,
     baseType: "Poly",
     size: "8x6",
     density: "Medium",
-    color: "Dark Brown",
+    color: "Brown",
     variants: systemVariants,
   },
   {
@@ -143,13 +154,13 @@ export const products: Product[] = [
     name: "Miraz Hair System",
     price: 13999,
     originalPrice: 15999,
-    image: productSystemMono,
-    images: [productSystemMono, productSystemLace],
+    image: productMonoNew,
+    images: [productMonoNew, productSystemLace],
     category: "Hair Systems",
     subcategory: "Mono",
     rating: 4.9,
     reviews: 105,
-    description: "A premium hybrid system engineered for balanced breathability, hold, and natural volume.",
+    description: "A high-performance hybrid system engineered for balanced breathability, hold, and natural volume.",
     features: ["Hybrid base", "Natural volume", "Long-lasting finish", "Custom fit", "Premium human hair"],
     inStock: true,
     baseType: "Mono",
@@ -158,13 +169,14 @@ export const products: Product[] = [
     color: "Black",
     variants: systemVariants,
     badge: "Trending",
+    serviceTier: "Regular",
   },
   {
     id: "hs-miraz-1",
     name: "Miraz-1 Hair System",
     price: 12999,
-    image: productSystemMono,
-    images: [productSystemMono, product8],
+    image: productSilkNew,
+    images: [productSilkNew, product8],
     category: "Hair Systems",
     subcategory: "Silk",
     rating: 4.7,
@@ -175,7 +187,7 @@ export const products: Product[] = [
     baseType: "Silk",
     size: "8x6",
     density: "Light",
-    color: "Grey",
+    color: "Pepper Salt",
     variants: systemVariants,
   },
   {
@@ -183,8 +195,8 @@ export const products: Product[] = [
     name: "Premium Signature System",
     price: 18999,
     originalPrice: 21999,
-    image: productSystemMono,
-    images: [productSystemMono, productSystemLace, product1],
+    image: productExecutiveNew,
+    images: [productExecutiveNew, productSystemMono, product1],
     category: "Hair Systems",
     subcategory: "Premium",
     rating: 5,
@@ -198,13 +210,14 @@ export const products: Product[] = [
     color: "Black",
     variants: systemVariants,
     badge: "Luxury",
+    serviceTier: "Premium",
   },
   {
     id: "hs-athletic-lace",
     name: "Athletic Lace System",
     price: 15499,
-    image: productSystemLace,
-    images: [productSystemLace, product2],
+    image: productLaceNew,
+    images: [productLaceNew, product2],
     category: "Hair Systems",
     subcategory: "Lace",
     rating: 4.8,
@@ -222,8 +235,8 @@ export const products: Product[] = [
     id: "hs-executive-mono",
     name: "Executive Mono System",
     price: 17499,
-    image: productSystemMono,
-    images: [productSystemMono, product4],
+    image: productExecutiveNew,
+    images: [productExecutiveNew, product4],
     category: "Hair Systems",
     subcategory: "Mono",
     rating: 4.9,
@@ -234,9 +247,10 @@ export const products: Product[] = [
     baseType: "Mono",
     size: "10x10",
     density: "Medium",
-    color: "Grey",
+    color: "Pepper Salt",
     variants: systemVariants,
     badge: "New Arrival",
+    serviceTier: "Premium",
   },
   {
     id: "acc-glue",
@@ -267,6 +281,7 @@ export const products: Product[] = [
     description: "Double-sided adhesive tape for hair system attachment with reliable waterproof hold.",
     features: ["Waterproof hold", "Easy removal", "Skin-safe", "36-yard roll", "Daily wear support"],
     inStock: true,
+    serviceTier: "Regular",
   },
   {
     id: "acc-clips",
@@ -281,6 +296,7 @@ export const products: Product[] = [
     description: "Secure clips for toppers, wigs, and maintenance routines.",
     features: ["Stainless finish", "Comfort grip", "Reusable", "Secure hold", "Set of clips"],
     inStock: true,
+    serviceTier: "Regular",
   },
   {
     id: "acc-scalp-protector",
@@ -296,6 +312,7 @@ export const products: Product[] = [
     features: ["Barrier protection", "Quick dry", "Comfort wear", "Skin friendly", "Improves bond performance"],
     inStock: true,
     badge: "Essential",
+    serviceTier: "Regular",
   },
   {
     id: "acc-solvent",
@@ -310,6 +327,7 @@ export const products: Product[] = [
     description: "Gentle remover for glue and tape residue during maintenance.",
     features: ["Gentle removal", "Residue control", "Safe for bases", "Fast acting", "Maintenance essential"],
     inStock: true,
+    serviceTier: "Regular",
   },
   {
     id: "acc-care-kit",
@@ -325,6 +343,7 @@ export const products: Product[] = [
     features: ["Adhesive tape", "Remover solution", "Wide-tooth comb", "Clips set", "Care guide"],
     inStock: true,
     badge: "Value Kit",
+    serviceTier: "Regular",
   },
   {
     id: "wig-silk-mirage",
@@ -357,6 +376,7 @@ export const products: Product[] = [
     features: ["Lace front", "Human hair", "22-inch length", "Natural brown", "Versatile styling"],
     inStock: true,
     badge: "Popular",
+    serviceTier: "Regular",
   },
 ];
 

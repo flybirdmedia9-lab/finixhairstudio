@@ -13,11 +13,29 @@ const Consultation = () => {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ service: "Hair system fixing", date: "", time: "11:00 AM", name: "", phone: "", email: "", location: "", message: "" });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setForm({ ...form, [e.target.name]: e.target.value });
-  const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); setSubmitted(true); };
+  const handleSubmit = (e: React.FormEvent) => { 
+    e.preventDefault(); 
+    
+    // Construct WhatsApp message
+    const message = `*New Consultation Booking*
+*Service:* ${form.service}
+*Date:* ${form.date}
+*Time:* ${form.time}
+*Name:* ${form.name}
+*Phone:* ${form.phone}
+${form.message ? `*Notes:* ${form.message}` : ""}`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/919705060222?text=${encodedMessage}`;
+    
+    // Open WhatsApp
+    window.open(whatsappUrl, "_blank");
+    setSubmitted(true); 
+  };
 
   if (submitted) {
     return (
-      <><AnnouncementBar /><Header /><div className="container py-20 text-center max-w-lg mx-auto"><CheckCircle className="w-16 h-16 text-gold mx-auto mb-6" /><h1 className="font-display text-3xl font-bold mb-4">Booking Confirmed!</h1><p className="font-body text-muted-foreground mb-6">Your {form.service.toLowerCase()} slot is requested for {form.date} at {form.time}. Vamsi will contact you shortly.</p><a href="https://wa.me/919705060222?text=Hi%20Vamsi,%20I%20just%20confirmed%20a%20booking." target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-6 py-3 rounded font-body font-semibold hover:bg-gold-dark transition-colors"><MessageCircle className="w-4 h-4" /> Chat on WhatsApp</a></div><Footer /></>
+      <><AnnouncementBar /><Header /><div className="container py-20 text-center max-w-lg mx-auto"><CheckCircle className="w-16 h-16 text-gold mx-auto mb-6" /><h1 className="font-display text-3xl font-bold mb-4">Booking Confirmed!</h1><p className="font-body text-muted-foreground mb-6">Your {form.service.toLowerCase()} slot is requested for {form.date} at {form.time}. Vamsi will contact you shortly.</p><a href="https://wa.me/919705060222" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-6 py-3 rounded font-body font-semibold hover:bg-gold-dark transition-colors"><MessageCircle className="w-4 h-4" /> Chat on WhatsApp</a></div><Footer /></>
     );
   }
 
@@ -48,8 +66,6 @@ const Consultation = () => {
             <div className="space-y-4">
               <input name="name" required placeholder="Full name *" value={form.name} onChange={handleChange} className="w-full border border-border rounded px-4 py-3 text-sm font-body outline-none focus:border-gold bg-background" />
               <input name="phone" type="tel" required placeholder="Phone number *" value={form.phone} onChange={handleChange} className="w-full border border-border rounded px-4 py-3 text-sm font-body outline-none focus:border-gold bg-background" />
-              <input name="email" type="email" placeholder="Email address" value={form.email} onChange={handleChange} className="w-full border border-border rounded px-4 py-3 text-sm font-body outline-none focus:border-gold bg-background" />
-              <input name="location" placeholder="Location / city" value={form.location} onChange={handleChange} className="w-full border border-border rounded px-4 py-3 text-sm font-body outline-none focus:border-gold bg-background" />
               <textarea name="message" rows={4} placeholder="Additional notes" value={form.message} onChange={handleChange} className="w-full border border-border rounded px-4 py-3 text-sm font-body outline-none focus:border-gold bg-background resize-none" />
               <button type="submit" className="w-full bg-gold text-accent-foreground py-4 rounded font-body font-semibold hover:bg-gold-dark transition-colors">Confirm Booking</button>
             </div>
